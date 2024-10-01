@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Registration Form</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            margin-top: 50px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h2 {
+            font-size: 30px;
+            font-weight: 700;
+            color: #343a40;
+        }
+
+        label {
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            border: 1px solid #e3e6f0; /* Adding border to individual fields */
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .payment-qr img {
+            margin-top: 15px;
+            max-width: 200px;
+            display: block;
+        }
+
+        fieldset {
+            border: 1px solid #e3e6f0;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        fieldset legend {
+            font-size: 18px;
+            color: #007bff;
+        }
+
+        .btn-link {
+            color: #007bff;
+            padding-left: 0;
+        }
+
+        .btn-link:hover {
+            text-decoration: underline;
+            color: #0056b3;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        .form-control {
+            border-radius: 4px;
+            border: 1px solid #ced4da; /* Adding a subtle border to form fields */
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <h2 class="my-4 text-center">Event Registration Form</h2>
+        <form method="post" action="{% url 'register' %}">
+            {% csrf_token %}
+            
+            <!-- Name -->
+            <div class="form-group">
+                <label for="id_name">Name</label>
+                <input type="text" class="form-control" id="id_name" name="name" placeholder="Enter your name" required>
+            </div>
+
+            <!-- College -->
+            <div class="form-group">
+                <label for="id_college">College</label>
+                <input type="text" class="form-control" id="id_college" name="college" placeholder="Enter your college" required>
+            </div>
+
+            <!-- Department -->
+            <div class="form-group">
+                <label for="id_dept">Department</label>
+                <input type="text" class="form-control" id="id_dept" name="dept" placeholder="Enter your department" required>
+            </div>
+
+            <!-- Technical Events -->
+            <fieldset class="form-group">
+                <legend>Technical Events</legend>
+                <div>
+                    <input type="checkbox" id="paper_presentation" name="technical_events" value="paper_presentation">
+                    <label for="paper_presentation">Paper Presentation</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="technical_quiz" name="technical_events" value="technical_quiz">
+                    <label for="technical_quiz">Technical Quiz</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="debugging" name="technical_events" value="debugging">
+                    <label for="debugging">Debugging</label>
+                </div>
+            </fieldset>
+
+            <!-- Paper Title -->
+            <div class="form-group">
+                <label for="id_paper_title">Paper Title</label>
+                <input type="text" class="form-control" id="id_paper_title" name="paper_title" placeholder="Enter your paper title" required>
+            </div>
+
+            <!-- Paper Submission Link (OneDrive) -->
+            <div class="form-group">
+                <label>Paper Submission Link (Dropbox)</label>
+                <div>
+                    <a href="https://www.dropbox.com/request/XBMKEzFUV2D7kgqXmCxL" target="_blank" class="btn btn-link">Click here to upload</a>
+                </div>
+                <p class="text-muted">Once uploaded, please copy the link and paste it in the field below:</p>
+                <input type="url" class="form-control" id="id_paper_link" name="paper_link" placeholder="Paste OneDrive link here" required>
+            </div>
+
+            <!-- Non-Technical Events -->
+            <fieldset class="form-group">
+                <legend>Non-Technical Events</legend>
+                <div>
+                    <input type="checkbox" id="connection" name="non_technical_events" value="connection">
+                    <label for="connection">Connection</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="freefire" name="non_technical_events" value="freefire">
+                    <label for="freefire">Freefire</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="pencil_art" name="non_technical_events" value="pencil_art">
+                    <label for="pencil_art">Pencil Art</label>
+                </div>
+            </fieldset>
+
+            <!-- Phone -->
+            <div class="form-group">
+                <label for="id_phone">Phone</label>
+                <input type="tel" class="form-control" id="id_phone" name="phone" placeholder="Enter your phone number" required>
+            </div>
+
+            <!-- Email -->
+            <div class="form-group">
+                <label for="id_email">Email</label>
+                <input type="email" class="form-control" id="id_email" name="email" placeholder="Enter your email" required>
+            </div>
+
+            <!-- Payment QR Code Image -->
+            <div class="form-group">
+                <label>Payment QR Code</label>
+                <div class="payment-qr">
+                    <img src="{% static 'images/gpay-image.jpg' %}" alt="Payment QR Code" style="max-width: 200px;">
+                </div>
+            </div>
+
+            <!-- Payment Submission Link (OneDrive) -->
+            <div class="form-group">
+                <label>Payment Submission Link (Dropbox)</label>
+                <div>
+                    <a href="https://www.dropbox.com/request/AM5u9cfltAKI4UPEEvEi" target="_blank" class="btn btn-link">Click here to upload</a>
+                </div>
+                <p class="text-muted">Once uploaded, please copy the link and paste it in the field below:</p>
+                <input type="url" class="form-control" id="id_payment_link" name="payment_link" placeholder="Paste OneDrive link here" required>
+            </div>
+
+            <!-- Transaction Number -->
+            <div class="form-group">
+                <label for="id_transaction_num">Transaction Number</label>
+                <input type="text" class="form-control" id="id_transaction_num" name="transaction_num" placeholder="Enter the transaction number" required>
+            </div>
+
+            <!-- WhatsApp Group Link -->
+            <div class="form-group">
+                <label for="id_whatsapp_link">WhatsApp Group Link</label>
+                <input type="url" class="form-control" id="id_whatsapp_link" name="whatsapp_link" placeholder="Enter WhatsApp group link" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">Register</button>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>
