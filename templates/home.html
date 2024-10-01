@@ -9,8 +9,13 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <style>
         body {
-            background-color: #f8f9fa;
+            /* Add a gradient background */
+            background: linear-gradient(135deg, #aaf8e9, #ACB6E5);
             font-family: 'Arial', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .container {
@@ -18,24 +23,39 @@
             padding: 30px;
             margin-top: 50px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
+            border-radius: 10px;
+            max-width: 700px;
+            width: 100%;
         }
 
         h2 {
-            font-size: 30px;
+            font-size: 32px;
             font-weight: 700;
-            color: #343a40;
+            color: #007bff;
+            text-align: center;
         }
 
         label {
             font-weight: 600;
+            color: #343a40;
         }
 
         .form-group {
             margin-bottom: 20px;
-            border: 1px solid #e3e6f0; /* Adding border to individual fields */
+            border: 1px solid #e3e6f0;
             padding: 15px;
             border-radius: 5px;
+        }
+
+        .form-control {
+            border-radius: 4px;
+            border: 1px solid #ced4da;
+            transition: box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        .form-control:focus {
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+            border-color: #007bff;
         }
 
         .btn-primary {
@@ -44,16 +64,11 @@
             padding: 10px 20px;
             border-radius: 5px;
             font-size: 16px;
+            transition: background-color 0.3s ease;
         }
 
         .btn-primary:hover {
             background-color: #0056b3;
-        }
-
-        .payment-qr img {
-            margin-top: 15px;
-            max-width: 200px;
-            display: block;
         }
 
         fieldset {
@@ -82,16 +97,34 @@
             margin-right: 10px;
         }
 
-        .form-control {
-            border-radius: 4px;
-            border: 1px solid #ced4da; /* Adding a subtle border to form fields */
+        .payment-qr img {
+            margin-top: 15px;
+            max-width: 200px;
+            display: block;
+        }
+
+        /* Additional styling for hover effects */
+        .form-control:hover {
+            border-color: #007bff;
+        }
+        
+        /* Make the container responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin-top: 30px;
+            }
+
+            h2 {
+                font-size: 28px;
+            }
         }
     </style>
 </head>
 <body>
     
     <div class="container">
-        <h2 class="my-4 text-center">Event Registration Form</h2>
+        <h2 class="my-4">Event Registration Form</h2>
         <form method="post" action="{% url 'register' %}">
             {% csrf_token %}
             
